@@ -1,4 +1,4 @@
-package gr.kokeroulis.androidforms;
+package gr.kokeroulis.androidforms.base;
 
 
 import android.view.ViewGroup;

@@ -1,4 +1,4 @@
-package gr.kokeroulis.androidforms;
+package gr.kokeroulis.demo;
 
 import org.junit.Test;
 

@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 
 import java.util.List;
 
-import gr.kokeroulis.demo.R;
+import gr.kokeroulis.androidforms.R;
 
 
 public class SelectionForm extends FrameLayout {

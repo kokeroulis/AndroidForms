@@ -1,9 +1,10 @@
-package gr.kokeroulis.demo;
+package gr.kokeroulis.androidforms.demo;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import gr.kokeroulis.demo.selectionform.SelectionModel;
+import gr.kokeroulis.androidforms.selectionform.SelectionModel;
+
 
 public class TestSelectionModel implements SelectionModel, Parcelable {
 

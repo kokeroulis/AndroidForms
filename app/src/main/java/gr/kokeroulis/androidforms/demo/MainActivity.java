@@ -1,9 +1,13 @@
-package gr.kokeroulis.demo;
+package gr.kokeroulis.androidforms.demo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import gr.kokeroulis.androidforms.selectionform.SelectionForm;
+import gr.kokeroulis.androidforms.selectionform.SelectionModel;
 
 public class MainActivity extends AppCompatActivity {
 

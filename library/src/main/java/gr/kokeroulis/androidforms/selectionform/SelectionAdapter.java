@@ -126,15 +126,8 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
             holder.bindTo(header);
         } else if (viewHolder instanceof ViewHolder) {
-            int pos;
-            if (mHeaders.size() > 0) {
-                pos = position - mHeaders.size();
-            } else {
-                pos = position;
-            }
             ViewHolder holder = (ViewHolder) viewHolder;
-
-            final SelectionModel selectionModel = mValues.get(pos);
+            final SelectionModel selectionModel = mValues.get(position);
             if (mDefault != null && mDefault == selectionModel) {
                 holder.mChecked.setVisibility(View.VISIBLE);
             } else {

@@ -18,6 +18,7 @@ public class SelectionForm extends FrameLayout {
     private SelectionAdapter selectionAdapter;
     private List<SelectionModel> selectionModels;
     private List<HeaderModel> headerModels;
+    private SelectionAdapter.SelectionAdapterClickListener listener;
 
     public SelectionForm(Context context) {
         super(context);
@@ -45,6 +46,8 @@ public class SelectionForm extends FrameLayout {
         if (headerModels != null) {
             setHeaderModels(headerModels);
         }
+
+        setOnSelectionAdapterClickListener(listener);
     }
 
     @Override
@@ -66,6 +69,14 @@ public class SelectionForm extends FrameLayout {
             this.headerModels = headerModels;
         } else {
             selectionAdapter.setHeaderModels(headerModels);
+        }
+    }
+
+    void setOnSelectionAdapterClickListener(SelectionAdapter.SelectionAdapterClickListener listener) {
+        if (selectionAdapter == null) {
+            this.listener = listener;
+        } else {
+            selectionAdapter.setOnSelectionAdapterClickListener(listener);
         }
     }
 }

@@ -23,10 +23,22 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static final int HEADER_TYPE = 999;
     private SelectionAdapterClickListener mListener;
     private SelectionModel mDefault;
+    private int maxSelectionItemCount;
+    private SelectionAdapterMaxItemsSelected mMaxItemsListener;
+    private final ArrayList<SelectionModel> selectedItemModes = new ArrayList<>();
 
     public interface SelectionAdapterClickListener {
         void onClick(SelectionModel model);
     }
+
+    public interface SelectionAdapterMaxItemsSelected {
+        void onMaxItemsSelected(ArrayList<SelectionModel> selectedItems);
+    }
+
+    public void setOnSelectionAdapterMaxItemsSelected(SelectionAdapterMaxItemsSelected listener) {
+        mMaxItemsListener = listener;
+    }
+
 
     public void setOnSelectionAdapterClickListener(SelectionAdapterClickListener listener) {
         mListener = listener;
@@ -133,18 +145,31 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else if (viewHolder instanceof ViewHolder) {
             ViewHolder holder = (ViewHolder) viewHolder;
             final SelectionModel selectionModel = mValues.get(findPosition(position));
-            if (mDefault != null && mDefault == selectionModel) {
+
+            if (selectedItemModes.contains(selectionModel)) {
                 holder.mChecked.setVisibility(View.VISIBLE);
             } else {
                 holder.mChecked.setVisibility(View.GONE);
             }
+
             holder.bindTo(selectionModel);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mListener != null) {
+                        if (selectedItemModes.size() >= maxSelectionItemCount) {
+                            // our stack is finished. Remove the first item
+                            SelectionModel toBeRemoved = selectedItemModes.get(0);
+                            selectedItemModes.remove(toBeRemoved);
+                        }
+
                         mListener.onClick(selectionModel);
+                        handleItemSelection(selectionModel);
                         mDefault = selectionModel;
+                        if (maxSelectionItemCount == selectedItemModes.size()
+                            && mMaxItemsListener != null) {
+                            mMaxItemsListener.onMaxItemsSelected(selectedItemModes);
+                        }
                         notifyDataSetChanged();
                     }
                 }
@@ -153,12 +178,28 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
+    private void handleItemSelection(@NonNull final SelectionModel selectionModel) {
+        if (selectedItemModes.contains(selectionModel)) {
+            selectedItemModes.remove(selectionModel);
+        } else {
+            selectedItemModes.add(selectionModel);
+        }
+    }
+
     private int findPosition(int position) {
         if (mHeaders.size() > 0) {
             return position - mHeaders.size();
         }
 
         return position;
+    }
+
+    public void setMaxSelectionItemCount(int count) {
+        maxSelectionItemCount = count;
+    }
+
+    public int getMaxSelectionItemCount() {
+        return maxSelectionItemCount;
     }
 
     @Override

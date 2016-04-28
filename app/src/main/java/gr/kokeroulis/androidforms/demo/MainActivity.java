@@ -6,7 +6,6 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import gr.kokeroulis.androidforms.selectionform.HeaderModel;
@@ -45,9 +44,23 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        SelectionAdapter.SelectionAdapterMaxItemsSelected maxItemsSelected = new SelectionAdapter.SelectionAdapterMaxItemsSelected() {
+            @Override
+            public void onMaxItemsSelected(ArrayList<SelectionModel> selectedItems) {
+                String stringHolder = "  ";
+
+                for (SelectionModel item : selectedItems) {
+                    stringHolder += item.title();
+                }
+
+                Toast.makeText(MainActivity.this, "You have selected " + stringHolder, Toast.LENGTH_SHORT).show();
+            }
+        };
+
 
         formModel.items = (ArrayList<SelectionModel>) selectionModelList;
         formModel.headers = (ArrayList<HeaderModel>) headers;
-        formContainer.addView(formModel.viewGroup(this, listener));
+        formModel.maxSelectionItemCount = 2;
+        formContainer.addView(formModel.viewGroup(this, listener, maxItemsSelected));
     }
 }

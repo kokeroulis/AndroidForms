@@ -19,6 +19,8 @@ public class SelectionForm extends FrameLayout {
     private List<SelectionModel> selectionModels;
     private List<HeaderModel> headerModels;
     private SelectionAdapter.SelectionAdapterClickListener listener;
+    private SelectionAdapter.SelectionAdapterMaxItemsSelected maxItemsSelectedListener;
+    public int maxSelectionItemCount;
 
     public SelectionForm(Context context) {
         super(context);
@@ -48,6 +50,8 @@ public class SelectionForm extends FrameLayout {
         }
 
         setOnSelectionAdapterClickListener(listener);
+        setOnSelectionAdapterMaxItemsSelected(maxItemsSelectedListener);
+        setMaxSelectionItemCount(maxSelectionItemCount);
     }
 
     @Override
@@ -72,11 +76,35 @@ public class SelectionForm extends FrameLayout {
         }
     }
 
-    void setOnSelectionAdapterClickListener(SelectionAdapter.SelectionAdapterClickListener listener) {
+    public void setOnSelectionAdapterClickListener(SelectionAdapter.SelectionAdapterClickListener listener) {
         if (selectionAdapter == null) {
             this.listener = listener;
         } else {
             selectionAdapter.setOnSelectionAdapterClickListener(listener);
+        }
+    }
+
+    public void setOnSelectionAdapterMaxItemsSelected(SelectionAdapter.SelectionAdapterMaxItemsSelected maxItemsSelectedListener) {
+        if (selectionAdapter == null) {
+            this.maxItemsSelectedListener = maxItemsSelectedListener;
+        } else {
+            selectionAdapter.setOnSelectionAdapterMaxItemsSelected(maxItemsSelectedListener);
+        }
+    }
+
+    public void setMaxSelectionItemCount(int count) {
+        maxSelectionItemCount = count;
+
+        if (selectionAdapter != null) {
+            selectionAdapter.setMaxSelectionItemCount(count);
+        }
+    }
+
+    public int getMaxSelectionItemCount() {
+        if (selectionAdapter == null) {
+            return maxSelectionItemCount;
+        } else {
+            return selectionAdapter.getMaxSelectionItemCount();
         }
     }
 }

@@ -86,8 +86,13 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         public void bindTo(HeaderModel header) {
-            mBackground.setBackgroundColor(getColor(header.backgroundColor));
-            mTitle.setTextColor(getColor(header.textColor));
+            if (header.backgroundColor > 0) {
+                mBackground.setBackgroundColor(getColor(header.backgroundColor));
+            }
+
+            if (header.textColor > 0) {
+                mTitle.setTextColor(getColor(header.textColor));
+            }
             mTitle.setText(header.title);
         }
 
@@ -127,7 +132,7 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             holder.bindTo(header);
         } else if (viewHolder instanceof ViewHolder) {
             ViewHolder holder = (ViewHolder) viewHolder;
-            final SelectionModel selectionModel = mValues.get(position);
+            final SelectionModel selectionModel = mValues.get(findPosition(position));
             if (mDefault != null && mDefault == selectionModel) {
                 holder.mChecked.setVisibility(View.VISIBLE);
             } else {
@@ -147,6 +152,14 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
+
+    private int findPosition(int position) {
+        if (mHeaders.size() > 0) {
+            return position - mHeaders.size();
+        }
+
+        return position;
+    }
 
     @Override
     public int getItemCount() {

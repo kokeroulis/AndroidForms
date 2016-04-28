@@ -6,8 +6,10 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import gr.kokeroulis.androidforms.selectionform.HeaderModel;
 import gr.kokeroulis.androidforms.selectionform.SelectionAdapter;
 import gr.kokeroulis.androidforms.selectionform.SelectionFormModel;
 import gr.kokeroulis.androidforms.selectionform.SelectionModel;
@@ -26,6 +28,14 @@ public class MainActivity extends AppCompatActivity {
         selectionModelList.add(new TestSelectionModel("third row"));
         selectionModelList.add(new TestSelectionModel("fourth row"));
 
+        HeaderModel first = new HeaderModel(0, 0, "First Header");
+        HeaderModel second = new HeaderModel(0, 0, "Second Header");
+        HeaderModel third = new HeaderModel(0, 0, "Third Header");
+
+        List<HeaderModel> headers = new ArrayList<>();
+        headers.add(first);
+        headers.add(second);
+        headers.add(third);
 
         SelectionFormModel formModel = new SelectionFormModel();
         SelectionAdapter.SelectionAdapterClickListener listener = new SelectionAdapter.SelectionAdapterClickListener() {
@@ -37,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         formModel.items = (ArrayList<SelectionModel>) selectionModelList;
+        formModel.headers = (ArrayList<HeaderModel>) headers;
         formContainer.addView(formModel.viewGroup(this, listener));
     }
 }

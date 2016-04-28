@@ -21,6 +21,7 @@ public class SelectionForm extends FrameLayout {
     private SelectionAdapter.SelectionAdapterClickListener listener;
     private SelectionAdapter.SelectionAdapterMaxItemsSelected maxItemsSelectedListener;
     public int maxSelectionItemCount;
+    public boolean isExpanded;
 
     public SelectionForm(Context context) {
         super(context);
@@ -41,6 +42,8 @@ public class SelectionForm extends FrameLayout {
         selectionAdapter = new SelectionAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(selectionAdapter);
+
+        setIsExpanded(isExpanded);
         if (selectionModels != null) {
             setSelectionModels(selectionModels);
         }
@@ -105,6 +108,23 @@ public class SelectionForm extends FrameLayout {
             return maxSelectionItemCount;
         } else {
             return selectionAdapter.getMaxSelectionItemCount();
+        }
+    }
+
+    public void setIsExpanded(boolean isExpanded) {
+        this.isExpanded = isExpanded;
+        if (selectionAdapter != null) {
+            selectionAdapter.setIsExpanded(isExpanded);
+        }
+    }
+
+    public boolean getIsExpanded(boolean isExpanded) {
+        return isExpanded;
+    }
+
+    public void updateExpansion() {
+        if (selectionAdapter != null) {
+            selectionAdapter.notifyDataSetChanged();
         }
     }
 }

@@ -22,10 +22,10 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private final List<SelectionModel> mValues = new ArrayList<>();
     public static final int HEADER_TYPE = 999;
     private SelectionAdapterClickListener mListener;
-    private SelectionModel mDefault;
     private int maxSelectionItemCount;
     private SelectionAdapterMaxItemsSelected mMaxItemsListener;
     private final ArrayList<SelectionModel> selectedItemModes = new ArrayList<>();
+    private boolean isExpanded;
 
     public interface SelectionAdapterClickListener {
         void onClick(SelectionModel model);
@@ -44,9 +44,6 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mListener = listener;
     }
 
-    public void setDefault(SelectionModel defaultValue) {
-        mDefault = defaultValue;
-    }
 
     public void setSelectionModels(@NonNull final List<SelectionModel> models) {
         mValues.clear();
@@ -141,6 +138,13 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (viewHolder instanceof HeaderViewHolder && mHeaders.size() > 0) {
             final HeaderModel header = mHeaders.get(position);
             HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    isExpanded = !isExpanded;
+                    notifyDataSetChanged();
+                }
+            });
             holder.bindTo(header);
         } else if (viewHolder instanceof ViewHolder) {
             ViewHolder holder = (ViewHolder) viewHolder;
@@ -165,7 +169,6 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                         mListener.onClick(selectionModel);
                         handleItemSelection(selectionModel);
-                        mDefault = selectionModel;
                         if (maxSelectionItemCount == selectedItemModes.size()
                             && mMaxItemsListener != null) {
                             mMaxItemsListener.onMaxItemsSelected(selectedItemModes);
@@ -202,8 +205,20 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return maxSelectionItemCount;
     }
 
+    public void setIsExpanded(boolean isExpanded) {
+        this.isExpanded = isExpanded;
+    }
+
+    public boolean getIsExpanded(boolean isExpanded) {
+        return isExpanded;
+    }
+
     @Override
     public int getItemCount() {
-        return mHeaders.size() + mValues.size();
+        if (!isExpanded) {
+            return mHeaders.size();
+        } else {
+            return mHeaders.size() + mValues.size();
+        }
     }
 }

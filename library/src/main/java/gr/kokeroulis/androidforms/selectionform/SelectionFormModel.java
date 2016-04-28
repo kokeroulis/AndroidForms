@@ -16,8 +16,10 @@ public class SelectionFormModel extends BaseForm {
     @Override
     public ViewGroup viewGroup(@NonNull final Context context) {
         SelectionForm formModel = new SelectionForm(context);
+        formModel.setIsExpanded(true);
         formModel.setSelectionModels(items);
         formModel.setMaxSelectionItemCount(maxSelectionItemCount);
+
         if (headers != null) {
             formModel.setHeaderModels(headers);
         }

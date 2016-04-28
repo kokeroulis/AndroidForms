@@ -2,7 +2,9 @@ package gr.kokeroulis.androidforms.numberform;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -35,9 +37,9 @@ public class NumberForm extends FrameLayout {
         LayoutInflater.from(getContext())
             .inflate(R.layout.number_form, this, true);
 
-        setInputType(numberFormModel.typeInput);
+        setInputType(numberFormModel.getInputType());
         setDescription(numberFormModel.description);
-        getNumberFormDelegate().getDescriptionView().addTextChangedListener(new TextWatcher() {
+        getNumberFormDelegate().getEditView().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -45,19 +47,38 @@ public class NumberForm extends FrameLayout {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                numberFormModel.value = s;
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                numberFormModel.value = s.toString();
+                if (TextUtils.isEmpty(numberFormModel.value.toString())) {
+                    return;
+                }
+                try {
+                    numberFormModel.getValidator().validate(numberFormModel.value);
+                } catch (Exception e) {
+                    numberFormModel.value = null;
+                    getNumberFormDelegate().getEditView().setText("");
+                    handleInvalidInput(e);
+                }
             }
         });
     }
 
+    protected void handleInvalidInput(Throwable e) {
+        new AlertDialog.Builder(getContext())
+            .setTitle("Invalid Input")
+            .setMessage(e.getMessage())
+            .setCancelable(false)
+            .setPositiveButton("Ok", null)
+            .show();
+    }
+
     public void bindTo(@NonNull final NumberFormModel numberFormModel) {
         this.numberFormModel = numberFormModel;
-        setInputType(numberFormModel.typeInput);
+        setInputType(numberFormModel.getInputType());
         setDescription(numberFormModel.description);
     }
 
@@ -77,9 +98,7 @@ public class NumberForm extends FrameLayout {
 
     public void setInputType(int type) {
         if (getNumberFormDelegate().getEditView() != null) {
-            getNumberFormDelegate().getEditView().setInputType(numberFormModel.typeInput);
-        } else {
-            numberFormModel.typeInput = type;
+            getNumberFormDelegate().getEditView().setInputType(numberFormModel.getInputType());
         }
     }
 

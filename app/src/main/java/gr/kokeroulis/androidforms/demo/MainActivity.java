@@ -8,7 +8,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import gr.kokeroulis.androidforms.numberform.NumberFormModel;
+import gr.kokeroulis.androidforms.numberform.IntegerFormModel;
 import gr.kokeroulis.androidforms.selectionform.HeaderModel;
 import gr.kokeroulis.androidforms.selectionform.SelectionAdapter;
 import gr.kokeroulis.androidforms.selectionform.SelectionFormModel;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         //formContainer.addView(formModel.viewGroup(this, listener, maxItemsSelected));
 
 
-        NumberFormModel numberFormModel = new NumberFormModel();
+        IntegerFormModel numberFormModel = new IntegerFormModel();
         numberFormModel.description = "Test form";
         formContainer.addView(numberFormModel.viewGroup(this));
     }

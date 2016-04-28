@@ -60,8 +60,13 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         public void bindTo(SelectionModel selectionModel) {
-            mBackground.setBackgroundColor(getColor(selectionModel.backgroundColor()));
-            mTitle.setTextColor(getColor(selectionModel.textColor()));
+            if (selectionModel.backgroundColor() > 0) {
+                mBackground.setBackgroundColor(getColor(selectionModel.backgroundColor()));
+            }
+
+            if (selectionModel.textColor() > 0) {
+                mTitle.setTextColor(getColor(selectionModel.textColor()));
+            }
             mTitle.setText(selectionModel.title());
         }
 
@@ -110,13 +115,13 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else {
             View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.holder_selection_form, parent, false);
-            return new HeaderViewHolder(view);
+            return new ViewHolder(view);
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        if (viewHolder instanceof HeaderViewHolder) {
+        if (viewHolder instanceof HeaderViewHolder && mHeaders.size() > 0) {
             final HeaderModel header = mHeaders.get(position);
             HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
             holder.bindTo(header);

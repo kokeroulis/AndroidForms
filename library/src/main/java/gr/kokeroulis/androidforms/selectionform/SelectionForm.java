@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 
 import java.util.List;
@@ -31,13 +32,18 @@ public class SelectionForm extends FrameLayout {
     }
 
     private void bindViews() {
+        LayoutInflater.from(getContext())
+            .inflate(R.layout.selection_form, this, true);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         selectionAdapter = new SelectionAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(selectionAdapter);
         if (selectionModels != null) {
-            setHeaderModels(headerModels);
             setSelectionModels(selectionModels);
+        }
+
+        if (headerModels != null) {
+            setHeaderModels(headerModels);
         }
     }
 
@@ -55,9 +61,9 @@ public class SelectionForm extends FrameLayout {
         }
     }
 
-    public void setHeaderModels(@NonNull final List<HeaderModel> selectionModels) {
+    public void setHeaderModels(@NonNull final List<HeaderModel> headerModels) {
         if (selectionAdapter == null) {
-            this.headerModels = selectionModels;
+            this.headerModels = headerModels;
         } else {
             selectionAdapter.setHeaderModels(headerModels);
         }

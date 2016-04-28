@@ -16,7 +16,7 @@ public class TestSelectionModel implements SelectionModel, Parcelable {
 
     @Override
     public String title() {
-        return null;
+        return title;
     }
 
     @Override

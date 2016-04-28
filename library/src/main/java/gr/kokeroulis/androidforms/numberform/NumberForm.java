@@ -68,9 +68,13 @@ public class NumberForm extends FrameLayout {
     }
 
     protected void handleInvalidInput(Throwable e) {
+        String error = e.getMessage();
+        if (e instanceof NumberFormatException) {
+            error = "Your input is not a valid number";
+        }
         new AlertDialog.Builder(getContext())
             .setTitle("Invalid Input")
-            .setMessage(e.getMessage())
+            .setMessage(error)
             .setCancelable(false)
             .setPositiveButton("Ok", null)
             .show();

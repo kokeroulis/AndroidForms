@@ -1,6 +1,7 @@
 package gr.kokeroulis.androidforms.numberform;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -65,6 +66,10 @@ public class NumberForm extends FrameLayout {
                 }
             }
         });
+
+        if (numberFormModel.throwableError != null) {
+            handleInvalidInput(new Throwable(numberFormModel.throwableError.throwableMessage));
+        }
     }
 
     protected void handleInvalidInput(Throwable e) {
@@ -72,11 +77,19 @@ public class NumberForm extends FrameLayout {
         if (e instanceof NumberFormatException) {
             error = "Your input is not a valid number";
         }
+
+        numberFormModel.throwableError = new ErrorHandler();
+        numberFormModel.throwableError.throwableMessage = error;
         new AlertDialog.Builder(getContext())
             .setTitle("Invalid Input")
             .setMessage(error)
             .setCancelable(false)
-            .setPositiveButton("Ok", null)
+            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    numberFormModel.throwableError = null;
+                }
+            })
             .show();
     }
 

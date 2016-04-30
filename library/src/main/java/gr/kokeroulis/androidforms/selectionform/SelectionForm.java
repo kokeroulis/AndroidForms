@@ -6,14 +6,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.FrameLayout;
 
 import java.util.List;
 
 import gr.kokeroulis.androidforms.R;
+import gr.kokeroulis.androidforms.base.BaseForm;
+import gr.kokeroulis.androidforms.base.BaseFormLayout;
 
 
-public class SelectionForm extends FrameLayout {
+public class SelectionForm extends BaseFormLayout {
     private RecyclerView recyclerView;
     private SelectionAdapter selectionAdapter;
     private List<SelectionModel> selectionModels;
@@ -33,6 +34,11 @@ public class SelectionForm extends FrameLayout {
 
     public SelectionForm(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    public void bindTo(BaseForm baseForm) {
+
     }
 
     private void bindViews() {

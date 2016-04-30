@@ -17,8 +17,10 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 
 import gr.kokeroulis.androidforms.R;
+import gr.kokeroulis.androidforms.base.BaseForm;
+import gr.kokeroulis.androidforms.base.BaseFormLayout;
 
-public class NumberForm extends FrameLayout {
+public class NumberForm extends BaseFormLayout {
     private NumberFormDelegate numberFormDelegate;
     private NumberFormModel numberFormModel;
 
@@ -70,6 +72,11 @@ public class NumberForm extends FrameLayout {
         if (numberFormModel.throwableError != null) {
             handleInvalidInput(new Throwable(numberFormModel.throwableError.throwableMessage));
         }
+    }
+
+    @Override
+    public void bindTo(BaseForm baseForm) {
+
     }
 
     protected void handleInvalidInput(Throwable e) {

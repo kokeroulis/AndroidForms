@@ -2,12 +2,15 @@ package gr.kokeroulis.androidforms.demo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import gr.kokeroulis.androidforms.base.BaseForm;
 import gr.kokeroulis.androidforms.numberform.IntegerFormModel;
 import gr.kokeroulis.androidforms.selectionform.HeaderModel;
 import gr.kokeroulis.androidforms.selectionform.SelectionAdapter;
@@ -20,8 +23,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FrameLayout formContainer = (FrameLayout) findViewById(R.id.formContainer);
+        //FrameLayout formContainer = (FrameLayout) findViewById(R.id.formContainer);
+        RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        TestAdapter testAdapter = new TestAdapter();
+        rv.setAdapter(testAdapter);
+        populateAdater(testAdapter);
 
+
+        //formContainer.addView(formModel.viewGroup(this, listener, maxItemsSelected));
+
+
+
+    }
+
+    public void populateAdater(TestAdapter testAdapter) {
+        List<BaseForm> forms = new ArrayList<>();
         List<SelectionModel> selectionModelList = new ArrayList<>();
         selectionModelList.add(new TestSelectionModel("first row"));
         selectionModelList.add(new TestSelectionModel("second row"));
@@ -36,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         headers.add(first);
         headers.add(second);
         headers.add(third);
+
 
         SelectionFormModel formModel = new SelectionFormModel();
         SelectionAdapter.SelectionAdapterClickListener listener = new SelectionAdapter.SelectionAdapterClickListener() {
@@ -62,11 +80,12 @@ public class MainActivity extends AppCompatActivity {
         formModel.items = (ArrayList<SelectionModel>) selectionModelList;
         formModel.headers = (ArrayList<HeaderModel>) headers;
         formModel.maxSelectionItemCount = 2;
-        //formContainer.addView(formModel.viewGroup(this, listener, maxItemsSelected));
-
 
         IntegerFormModel numberFormModel = new IntegerFormModel();
         numberFormModel.description = "Test form";
-        formContainer.addView(numberFormModel.viewGroup(this));
+
+        forms.add(formModel);
+        forms.add(numberFormModel);
+        testAdapter.setValues(forms);
     }
 }

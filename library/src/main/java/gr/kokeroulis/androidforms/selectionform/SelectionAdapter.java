@@ -45,9 +45,15 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    public void setSelectionModels(@NonNull final List<SelectionModel> models) {
+    public void setSelectionModels(@NonNull final List<? extends SelectionModel> models) {
         mValues.clear();
         mValues.addAll(models);
+        notifyDataSetChanged();
+    }
+
+    public void setCurrentSelection(@NonNull final List<? extends SelectionModel> currentSelection) {
+        selectedItemModes.clear();
+        selectedItemModes.addAll(currentSelection);
         notifyDataSetChanged();
     }
 

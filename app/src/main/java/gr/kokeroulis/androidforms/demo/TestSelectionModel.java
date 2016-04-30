@@ -1,12 +1,11 @@
 package gr.kokeroulis.androidforms.demo;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import gr.kokeroulis.androidforms.selectionform.SelectionModel;
 
 
-public class TestSelectionModel implements SelectionModel, Parcelable {
+public class TestSelectionModel implements SelectionModel {
 
     public String title;
 
@@ -52,4 +51,20 @@ public class TestSelectionModel implements SelectionModel, Parcelable {
             return new TestSelectionModel[size];
         }
     };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TestSelectionModel)) return false;
+
+        TestSelectionModel that = (TestSelectionModel) o;
+
+        return title != null ? title.equals(that.title) : that.title == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return title != null ? title.hashCode() : 0;
+    }
 }

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +11,9 @@ import java.util.List;
 import gr.kokeroulis.androidforms.base.BaseForm;
 import gr.kokeroulis.androidforms.numberform.IntegerFormModel;
 import gr.kokeroulis.androidforms.selectionform.HeaderModel;
-import gr.kokeroulis.androidforms.selectionform.SelectionAdapter;
-import gr.kokeroulis.androidforms.selectionform.SelectionFormModel;
-import gr.kokeroulis.androidforms.selectionform.SelectionModel;
 
 public class MainActivity extends AppCompatActivity {
+    private TestAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,20 +22,33 @@ public class MainActivity extends AppCompatActivity {
         //FrameLayout formContainer = (FrameLayout) findViewById(R.id.formContainer);
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        TestAdapter testAdapter = new TestAdapter();
-        rv.setAdapter(testAdapter);
-        populateAdater(testAdapter);
+        adapter = new TestAdapter();
+        rv.setAdapter(adapter);
 
-
-        //formContainer.addView(formModel.viewGroup(this, listener, maxItemsSelected));
-
-
-
+        if (savedInstanceState == null) {
+            populateAdater();
+        }
     }
 
-    public void populateAdater(TestAdapter testAdapter) {
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("adapter_items",adapter.getValues());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (adapter == null) {
+            adapter = new TestAdapter();
+        }
+
+        adapter.setValues(savedInstanceState.<BaseForm>getParcelableArrayList("adapter_items"));
+    }
+
+    public void populateAdater() {
         List<BaseForm> forms = new ArrayList<>();
-        List<SelectionModel> selectionModelList = new ArrayList<>();
+        ArrayList<TestSelectionModel> selectionModelList = new ArrayList<>();
         selectionModelList.add(new TestSelectionModel("first row"));
         selectionModelList.add(new TestSelectionModel("second row"));
         selectionModelList.add(new TestSelectionModel("third row"));
@@ -54,29 +64,9 @@ public class MainActivity extends AppCompatActivity {
         headers.add(third);
 
 
-        SelectionFormModel formModel = new SelectionFormModel();
-        SelectionAdapter.SelectionAdapterClickListener listener = new SelectionAdapter.SelectionAdapterClickListener() {
-            @Override
-            public void onClick(SelectionModel model) {
-                Toast.makeText(MainActivity.this, "You have clicked " + model.title(), Toast.LENGTH_SHORT).show();
-            }
-        };
+        TestSelectionFormModel formModel = new TestSelectionFormModel();
 
-        SelectionAdapter.SelectionAdapterMaxItemsSelected maxItemsSelected = new SelectionAdapter.SelectionAdapterMaxItemsSelected() {
-            @Override
-            public void onMaxItemsSelected(ArrayList<SelectionModel> selectedItems) {
-                String stringHolder = "  ";
-
-                for (SelectionModel item : selectedItems) {
-                    stringHolder += item.title();
-                }
-
-                Toast.makeText(MainActivity.this, "You have selected " + stringHolder, Toast.LENGTH_SHORT).show();
-            }
-        };
-
-
-        formModel.items = (ArrayList<SelectionModel>) selectionModelList;
+        formModel.items =  selectionModelList;
         formModel.headers = (ArrayList<HeaderModel>) headers;
         formModel.maxSelectionItemCount = 2;
         formModel.isExpanded = true;
@@ -86,6 +76,6 @@ public class MainActivity extends AppCompatActivity {
 
         forms.add(formModel);
         forms.add(numberFormModel);
-        testAdapter.setValues(forms);
+        adapter.setValues(forms);
     }
 }

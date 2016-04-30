@@ -14,7 +14,7 @@ import gr.kokeroulis.androidforms.base.BaseFormLayout;
 import gr.kokeroulis.androidforms.base.FormLayout;
 
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
-    private final List<BaseForm> mValues = new ArrayList<>();
+    private final ArrayList<BaseForm> mValues = new ArrayList<>();
 
 
     @Override
@@ -43,6 +43,10 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    public ArrayList<? extends BaseForm> getValues() {
+        return mValues;
     }
 
     public void setValues(@NonNull final List<BaseForm> values) {

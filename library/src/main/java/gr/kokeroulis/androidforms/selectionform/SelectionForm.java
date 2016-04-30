@@ -17,7 +17,8 @@ import gr.kokeroulis.androidforms.base.BaseFormLayout;
 public class SelectionForm extends BaseFormLayout {
     private RecyclerView recyclerView;
     private SelectionAdapter selectionAdapter;
-    private List<SelectionModel> selectionModels;
+    private List<? extends SelectionModel> selectionModels;
+    private List<? extends SelectionModel> currentSelection;
     private List<HeaderModel> headerModels;
     private SelectionAdapter.SelectionAdapterClickListener listener;
     private SelectionAdapter.SelectionAdapterMaxItemsSelected maxItemsSelectedListener;
@@ -39,12 +40,16 @@ public class SelectionForm extends BaseFormLayout {
     @Override
     public void bindTo(BaseForm baseForm) {
         final SelectionFormModel formModel = (SelectionFormModel) baseForm;
-        if (formModel.items != null && formModel.items.size() > 0) {
-            setSelectionModels(formModel.items);
+        if (formModel.getItems() != null && formModel.getItems().size() > 0) {
+            setSelectionModels(formModel.getItems());
         }
 
         if (formModel.headers != null && formModel.headers.size() > 0) {
             setHeaderModels(formModel.headers);
+        }
+
+        if (formModel.getCurrentSelection() != null && formModel.getCurrentSelection().size() > 0) {
+            setCurrentSelection(formModel.getCurrentSelection());
         }
 
         setIsExpanded(formModel.isExpanded);
@@ -68,6 +73,10 @@ public class SelectionForm extends BaseFormLayout {
             setHeaderModels(headerModels);
         }
 
+        if (currentSelection != null) {
+            setCurrentSelection(currentSelection);
+        }
+
         setOnSelectionAdapterClickListener(listener);
         setOnSelectionAdapterMaxItemsSelected(maxItemsSelectedListener);
         setMaxSelectionItemCount(maxSelectionItemCount);
@@ -79,11 +88,19 @@ public class SelectionForm extends BaseFormLayout {
         bindViews();
     }
 
-    public void setSelectionModels(@NonNull final List<SelectionModel> selectionModels) {
+    public void setSelectionModels(@NonNull final List<? extends SelectionModel> selectionModels) {
         if (selectionAdapter == null) {
             this.selectionModels = selectionModels;
         } else {
             selectionAdapter.setSelectionModels(selectionModels);
+        }
+    }
+
+    public void setCurrentSelection(@NonNull final List<? extends SelectionModel> currentSelection) {
+        if (selectionAdapter == null) {
+            this.currentSelection = currentSelection;
+        } else {
+            selectionAdapter.setCurrentSelection(currentSelection);
         }
     }
 

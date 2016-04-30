@@ -8,23 +8,18 @@ import java.util.ArrayList;
 
 import gr.kokeroulis.androidforms.base.BaseForm;
 
-public class SelectionFormModel extends BaseForm {
-    public ArrayList<SelectionModel> items;
+public abstract class SelectionFormModel extends BaseForm {
     public ArrayList<HeaderModel> headers;
     public int maxSelectionItemCount;
     public boolean isExpanded;
-    public ArrayList<SelectionModel> currentSelection;
+
+    public abstract ArrayList<? extends SelectionModel> getItems();
+
+    public abstract ArrayList<? extends SelectionModel> getCurrentSelection();
 
     @Override
     public ViewGroup viewGroup(@NonNull final Context context) {
         SelectionForm formModel = new SelectionForm(context);
-
-        formModel.setOnSelectionAdapterMaxItemsSelected(new SelectionAdapter.SelectionAdapterMaxItemsSelected() {
-            @Override
-            public void onMaxItemsSelected(ArrayList<SelectionModel> selectedItems) {
-                currentSelection = selectedItems;
-            }
-        });
         return formModel;
     }
 }

@@ -12,33 +12,19 @@ public class SelectionFormModel extends BaseForm {
     public ArrayList<SelectionModel> items;
     public ArrayList<HeaderModel> headers;
     public int maxSelectionItemCount;
+    public boolean isExpanded;
+    public ArrayList<SelectionModel> currentSelection;
 
     @Override
     public ViewGroup viewGroup(@NonNull final Context context) {
         SelectionForm formModel = new SelectionForm(context);
-        formModel.setIsExpanded(true);
-        formModel.setSelectionModels(items);
-        formModel.setMaxSelectionItemCount(maxSelectionItemCount);
 
-        if (headers != null) {
-            formModel.setHeaderModels(headers);
-        }
+        formModel.setOnSelectionAdapterMaxItemsSelected(new SelectionAdapter.SelectionAdapterMaxItemsSelected() {
+            @Override
+            public void onMaxItemsSelected(ArrayList<SelectionModel> selectedItems) {
+                currentSelection = selectedItems;
+            }
+        });
         return formModel;
-    }
-
-    public ViewGroup viewGroup(@NonNull final Context context,
-                               SelectionAdapter.SelectionAdapterClickListener listener) {
-
-        SelectionForm selectionForm = (SelectionForm) viewGroup(context);
-        selectionForm.setOnSelectionAdapterClickListener(listener);
-        return selectionForm;
-    }
-
-    public ViewGroup viewGroup(@NonNull final Context context,
-                               SelectionAdapter.SelectionAdapterClickListener listener, SelectionAdapter.SelectionAdapterMaxItemsSelected maxItemsListener) {
-
-        SelectionForm selectionForm = (SelectionForm) viewGroup(context, listener);
-        selectionForm.setOnSelectionAdapterMaxItemsSelected(maxItemsListener);
-        return selectionForm;
     }
 }

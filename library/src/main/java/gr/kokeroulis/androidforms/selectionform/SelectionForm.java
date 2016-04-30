@@ -38,7 +38,17 @@ public class SelectionForm extends BaseFormLayout {
 
     @Override
     public void bindTo(BaseForm baseForm) {
+        final SelectionFormModel formModel = (SelectionFormModel) baseForm;
+        if (formModel.items != null && formModel.items.size() > 0) {
+            setSelectionModels(formModel.items);
+        }
 
+        if (formModel.headers != null && formModel.headers.size() > 0) {
+            setHeaderModels(formModel.headers);
+        }
+
+        setIsExpanded(formModel.isExpanded);
+        setMaxSelectionItemCount(formModel.maxSelectionItemCount);
     }
 
     private void bindViews() {

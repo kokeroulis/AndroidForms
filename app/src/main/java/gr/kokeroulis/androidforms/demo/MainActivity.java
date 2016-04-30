@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -80,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         formModel.items = (ArrayList<SelectionModel>) selectionModelList;
         formModel.headers = (ArrayList<HeaderModel>) headers;
         formModel.maxSelectionItemCount = 2;
+        formModel.isExpanded = true;
 
         IntegerFormModel numberFormModel = new IntegerFormModel();
         numberFormModel.description = "Test form";

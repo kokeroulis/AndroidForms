@@ -160,21 +160,21 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mListener != null) {
-                        if (selectedItemModes.size() >= maxSelectionItemCount) {
-                            // our stack is finished. Remove the first item
-                            SelectionModel toBeRemoved = selectedItemModes.get(0);
-                            selectedItemModes.remove(toBeRemoved);
-                        }
-
-                        mListener.onClick(selectionModel);
-                        handleItemSelection(selectionModel);
-                        if (maxSelectionItemCount == selectedItemModes.size()
-                            && mMaxItemsListener != null) {
-                            mMaxItemsListener.onMaxItemsSelected(selectedItemModes);
-                        }
-                        notifyDataSetChanged();
+                    if (selectedItemModes.size() >= maxSelectionItemCount) {
+                        // our stack is finished. Remove the first item
+                        SelectionModel toBeRemoved = selectedItemModes.get(0);
+                        selectedItemModes.remove(toBeRemoved);
                     }
+
+                    if (mListener != null) {
+                        mListener.onClick(selectionModel);
+                    }
+                    handleItemSelection(selectionModel);
+                    if (maxSelectionItemCount == selectedItemModes.size()
+                        && mMaxItemsListener != null) {
+                        mMaxItemsListener.onMaxItemsSelected(selectedItemModes);
+                    }
+                    notifyDataSetChanged();
                 }
             });
         }

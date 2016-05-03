@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import gr.kokeroulis.androidforms.base.BaseForm;
 
 public abstract class SelectionFormModel extends BaseForm {
-    public ArrayList<HeaderModel> headers;
+    public ArrayList<HeaderModel> headers = new ArrayList<>();
     public int maxSelectionItemCount;
     public boolean isExpanded;
 

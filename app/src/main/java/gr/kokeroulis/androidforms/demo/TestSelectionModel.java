@@ -9,6 +9,8 @@ public class TestSelectionModel implements SelectionModel {
 
     public String title;
 
+    public String key;
+
     public TestSelectionModel(String title) {
         this.title = title;
     }
@@ -16,6 +18,11 @@ public class TestSelectionModel implements SelectionModel {
     @Override
     public String title() {
         return title;
+    }
+
+    @Override
+    public String key() {
+        return key;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package gr.kokeroulis.androidforms.numberform;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
@@ -9,9 +10,10 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -42,6 +44,7 @@ public class NumberForm extends BaseFormLayout {
 
         setInputType(numberFormModel.getInputType());
         setDescription(numberFormModel.description);
+        getNumberFormDelegate().getEditView().setText(numberFormModel.value);
         getNumberFormDelegate().getEditView().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -85,6 +88,7 @@ public class NumberForm extends BaseFormLayout {
             error = "Your input is not a valid number";
         }
 
+        hideKeyboardFrom(this);
         numberFormModel.throwableError = new ErrorHandler();
         numberFormModel.throwableError.throwableMessage = error;
         new AlertDialog.Builder(getContext())
@@ -155,6 +159,14 @@ public class NumberForm extends BaseFormLayout {
                 return (EditText) parentViewGroup.get().findViewById(R.id.edit);
             }
             return null;
+        }
+    }
+
+    private void hideKeyboardFrom(@NonNull final View view) {
+        final Context context = view.getContext();
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 }

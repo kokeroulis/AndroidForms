@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         formModel.maxSelectionItemCount = 2;
         formModel.isExpanded = true;
 
-        IntegerFormModel numberFormModel = new IntegerFormModel();
+        IntegerFormModel numberFormModel = new IntegerFormModel(20, 40);
         numberFormModel.description = "Test form";
 
         forms.add(formModel);

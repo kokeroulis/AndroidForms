@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gr.kokeroulis.androidforms.base.BaseForm;
-import gr.kokeroulis.androidforms.numberform.IntegerFormModel;
+import gr.kokeroulis.androidforms.numberform.FloatFormModel;
 import gr.kokeroulis.androidforms.selectionform.HeaderModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         formModel.maxSelectionItemCount = 2;
         formModel.isExpanded = true;
 
-        IntegerFormModel numberFormModel = new IntegerFormModel(20, 40);
+        FloatFormModel numberFormModel = new FloatFormModel(20.5f, 40f);
         numberFormModel.description = "Test form";
 
         forms.add(formModel);

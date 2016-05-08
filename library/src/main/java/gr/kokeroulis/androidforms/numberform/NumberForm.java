@@ -86,7 +86,7 @@ public class NumberForm extends BaseFormLayout {
 
     }
 
-    void setOnValueChangedListener(OnValueChangedListener listener) {
+    public void setOnValueChangedListener(OnValueChangedListener listener) {
         this.listener = listener;
     }
 

@@ -25,6 +25,7 @@ import gr.kokeroulis.androidforms.base.BaseFormLayout;
 public class NumberForm extends BaseFormLayout {
     private NumberFormDelegate numberFormDelegate;
     private NumberFormModel numberFormModel;
+    private OnValueChangedListener listener;
 
     public NumberForm(Context context) {
         super(context);
@@ -59,11 +60,14 @@ public class NumberForm extends BaseFormLayout {
             @Override
             public void afterTextChanged(Editable s) {
                 numberFormModel.value = s.toString();
-                if (TextUtils.isEmpty(numberFormModel.value.toString())) {
+                if (TextUtils.isEmpty(numberFormModel.value)) {
                     return;
                 }
                 try {
-                    numberFormModel.getValidator().validate(numberFormModel.value);
+                    Object value = numberFormModel.getValidator().validate(numberFormModel.value);
+                    if (listener != null) {
+                        listener.onValueChanged(value);
+                    }
                 } catch (Exception e) {
                     numberFormModel.value = null;
                     getNumberFormDelegate().getEditView().setText("");
@@ -80,6 +84,10 @@ public class NumberForm extends BaseFormLayout {
     @Override
     public void bindTo(BaseForm baseForm) {
 
+    }
+
+    void setOnValueChangedListener(OnValueChangedListener listener) {
+        this.listener = listener;
     }
 
     protected void handleInvalidInput(Throwable e) {
@@ -168,5 +176,9 @@ public class NumberForm extends BaseFormLayout {
         if (imm != null) {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    public interface OnValueChangedListener {
+        void onValueChanged(Object value);
     }
 }

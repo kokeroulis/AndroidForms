@@ -147,26 +147,26 @@ public class NumberForm extends BaseFormLayout {
     }
 
     public static class NumberFormDelegateImpl implements NumberFormDelegate {
-        private final WeakReference<ViewGroup> parentViewGroup;
+        private ViewGroup parentViewGroup;
 
         public NumberFormDelegateImpl(ViewGroup viewGroup) {
-            parentViewGroup = new WeakReference<>(viewGroup);
+            parentViewGroup = viewGroup;
         }
 
         @Override
         public TextView getDescriptionView() {
-            if (parentViewGroup.get() != null) {
-                return (TextView) parentViewGroup.get().findViewById(R.id.description);
-            }
-            return null;
+            return (TextView) parentViewGroup.findViewById(R.id.description);
         }
 
         @Override
         public EditText getEditView() {
-            if (parentViewGroup.get() != null) {
-                return (EditText) parentViewGroup.get().findViewById(R.id.edit);
-            }
-            return null;
+            return (EditText) parentViewGroup.findViewById(R.id.edit);
+        }
+
+        @Override
+        protected void finalize() throws Throwable {
+            super.finalize();
+            parentViewGroup = null;
         }
     }
 

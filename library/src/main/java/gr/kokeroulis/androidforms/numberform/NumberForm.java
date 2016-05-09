@@ -16,8 +16,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.lang.ref.WeakReference;
-
 import gr.kokeroulis.androidforms.R;
 import gr.kokeroulis.androidforms.base.BaseForm;
 import gr.kokeroulis.androidforms.base.BaseFormLayout;
@@ -41,7 +39,7 @@ public class NumberForm extends BaseFormLayout {
 
     private void bindViews() {
         LayoutInflater.from(getContext())
-            .inflate(R.layout.number_form, this, true);
+            .inflate(R.layout.number_form_layout, this, true);
 
         setInputType(numberFormModel.getInputType());
         setDescription(numberFormModel.description);
@@ -155,12 +153,12 @@ public class NumberForm extends BaseFormLayout {
 
         @Override
         public TextView getDescriptionView() {
-            return (TextView) parentViewGroup.findViewById(R.id.description);
+            return (TextView) parentViewGroup.findViewById(R.id.android_forms_number_description);
         }
 
         @Override
         public EditText getEditView() {
-            return (EditText) parentViewGroup.findViewById(R.id.edit);
+            return (EditText) parentViewGroup.findViewById(R.id.android_forms_number_value);
         }
 
         @Override

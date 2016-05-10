@@ -70,7 +70,7 @@ public class FloatFormModel extends NumberFormModel implements Parcelable {
         @Override
         public Float validate(String value) throws Exception {
             float currentValue = Float.parseFloat(value);
-            if (value.length() > 2 && !value.endsWith(".") && (currentValue <= mix || currentValue >= max)) {
+            if (value.length() > 2 && !value.endsWith(".") && (currentValue < mix || currentValue > max)) {
                 throw new RuntimeException("Your value is out of the expected limits");
             }
             return currentValue;

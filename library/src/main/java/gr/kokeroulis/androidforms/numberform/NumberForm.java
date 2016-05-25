@@ -38,6 +38,7 @@ public class NumberForm extends BaseFormLayout {
     }
 
     private void bindViews() {
+        removeAllViews();
         LayoutInflater.from(getContext())
             .inflate(R.layout.number_form_layout, this, true);
 

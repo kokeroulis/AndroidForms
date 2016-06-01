@@ -18,8 +18,5 @@ public abstract class SelectionFormModel extends BaseForm {
     public abstract ArrayList<? extends SelectionModel> getCurrentSelection();
 
     @Override
-    public ViewGroup viewGroup(@NonNull final Context context) {
-        SelectionForm formModel = new SelectionForm(context);
-        return formModel;
-    }
+    public abstract ViewGroup viewGroup(@NonNull final Context context);
 }

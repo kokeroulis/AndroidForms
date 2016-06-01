@@ -14,7 +14,7 @@ import gr.kokeroulis.androidforms.base.BaseForm;
 import gr.kokeroulis.androidforms.base.BaseFormLayout;
 
 
-public class SelectionForm extends BaseFormLayout {
+public abstract class SelectionForm<VhUi extends ViewHolderUiProvider> extends BaseFormLayout {
     private RecyclerView recyclerView;
     private SelectionAdapter selectionAdapter;
     private List<? extends SelectionModel> selectionModels;
@@ -56,11 +56,14 @@ public class SelectionForm extends BaseFormLayout {
         setMaxSelectionItemCount(formModel.maxSelectionItemCount);
     }
 
+    @NonNull
+    protected abstract VhUi createViewHolderUiProvider();
+
     private void bindViews() {
         LayoutInflater.from(getContext())
             .inflate(R.layout.selection_form, this, true);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        selectionAdapter = new SelectionAdapter();
+        selectionAdapter = new SelectionAdapter(createViewHolderUiProvider());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(selectionAdapter);
 

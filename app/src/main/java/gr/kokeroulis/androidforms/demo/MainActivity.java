@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         formModel.items =  selectionModelList;
         formModel.headers = (ArrayList<HeaderModel>) headers;
-        formModel.maxSelectionItemCount = 2;
+        formModel.maxSelectionItemCount = 1;
         formModel.isExpanded = true;
 
         FloatFormModel numberFormModel = new FloatFormModel(20.5f, 40f);

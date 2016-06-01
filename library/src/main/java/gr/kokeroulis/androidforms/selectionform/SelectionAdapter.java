@@ -26,6 +26,11 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private SelectionAdapterMaxItemsSelected mMaxItemsListener;
     private final ArrayList<SelectionModel> selectedItemModes = new ArrayList<>();
     private boolean isExpanded;
+    private final ViewHolderUiProvider viewHolderUiProvider;
+
+    public SelectionAdapter(@NonNull final ViewHolderUiProvider viewHolderUiProvider) {
+        this.viewHolderUiProvider = viewHolderUiProvider;
+    }
 
     public interface SelectionAdapterClickListener {
         void onClick(SelectionModel model);
@@ -134,7 +139,7 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             return new HeaderViewHolder(view);
         } else {
             View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.holder_selection_form, parent, false);
+                .inflate(viewHolderUiProvider.getLayout(), parent, false);
             return new ViewHolder(view);
         }
     }
@@ -157,9 +162,9 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             final SelectionModel selectionModel = mValues.get(findPosition(position));
 
             if (selectedItemModes.contains(selectionModel)) {
-                holder.mChecked.setVisibility(View.VISIBLE);
+                viewHolderUiProvider.showIcon(holder);
             } else {
-                holder.mChecked.setVisibility(View.GONE);
+                viewHolderUiProvider.hideIcon(holder);
             }
 
             holder.bindTo(selectionModel);

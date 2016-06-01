@@ -21,7 +21,7 @@ public class TestSelectionFormModel extends SelectionFormModel {
 
     @Override
     public ViewGroup viewGroup(@NonNull Context context) {
-        SelectionForm selectionForm = (SelectionForm) super.viewGroup(context);
+        SelectionForm selectionForm = new TestSelectionForm(context);
         selectionForm.setOnSelectionAdapterMaxItemsSelected(new SelectionAdapter.SelectionAdapterMaxItemsSelected() {
             @Override
             public void onMaxItemsSelected(ArrayList<SelectionModel> selectedItems) {

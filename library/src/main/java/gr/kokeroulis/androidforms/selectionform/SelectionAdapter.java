@@ -67,7 +67,7 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mHeaders.addAll(headers);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public final FrameLayout mBackground;
         public final TextView mTitle;
         public final ImageView mChecked;
@@ -95,7 +95,7 @@ public class SelectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    static class HeaderViewHolder extends RecyclerView.ViewHolder {
+    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
         public final FrameLayout mBackground;
         public final TextView mTitle;
         public HeaderViewHolder(View itemView) {

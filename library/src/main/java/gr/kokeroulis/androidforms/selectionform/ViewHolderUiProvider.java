@@ -1,9 +1,10 @@
 package gr.kokeroulis.androidforms.selectionform;
 
 
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-public interface ViewHolderUiProvider {
+public interface ViewHolderUiProvider extends Parcelable {
 
     int getLayout();
 

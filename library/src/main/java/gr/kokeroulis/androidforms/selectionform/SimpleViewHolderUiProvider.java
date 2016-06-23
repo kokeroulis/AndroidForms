@@ -26,6 +26,16 @@ public class SimpleViewHolderUiProvider implements ViewHolderUiProvider, Parcela
         holder.mChecked.setVisibility(View.GONE);
     }
 
+    @Override
+    public int getBackgroundHeaderColor() {
+        return 0;
+    }
+
+    @Override
+    public int getTextHeaderColor() {
+        return 0;
+    }
+
 
     @Override
     public int describeContents() {

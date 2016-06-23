@@ -11,4 +11,8 @@ public interface ViewHolderUiProvider extends Parcelable {
     void showIcon(@NonNull final SelectionAdapter.ViewHolder holder);
 
     void hideIcon(@NonNull final SelectionAdapter.ViewHolder holder);
+
+    int getBackgroundHeaderColor();
+
+    int getTextHeaderColor();
 }

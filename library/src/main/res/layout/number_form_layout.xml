@@ -7,7 +7,7 @@
 
        <TextView
            android:id="@+id/android_forms_number_description"
-           android:layout_marginLeft="5dp"
+           android:padding="10dp"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"/>
 

@@ -15,7 +15,7 @@ public class StringFormModel extends NumberFormModel implements Parcelable {
 
     @Override
     public int getInputType() {
-        return EditorInfo.TYPE_CLASS_TEXT;
+        return EditorInfo.TYPE_TEXT_FLAG_IME_MULTI_LINE;
     }
 
     @Override

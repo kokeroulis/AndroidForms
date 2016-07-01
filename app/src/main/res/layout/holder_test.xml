@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<gr.kokeroulis.androidforms.base.FormLayout
+<gr.kokeroulis.androidforms2.base.FormLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/formLayout"
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
 
-</gr.kokeroulis.androidforms.base.FormLayout>
+</gr.kokeroulis.androidforms2.base.FormLayout>

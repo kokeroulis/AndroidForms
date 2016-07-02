@@ -1,6 +1,5 @@
 package gr.kokeroulis.androidforms2.demo;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -8,9 +7,6 @@ import com.hannesdorfmann.adapterdelegates2.AdapterDelegatesManager;
 
 import java.util.List;
 
-/**
- * Created by kokeroulis on 01/07/16.
- */
 
 public class MainFormsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final AdapterDelegatesManager<List<Object>> delegatesManager;

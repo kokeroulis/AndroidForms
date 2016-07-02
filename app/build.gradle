@@ -27,5 +27,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'io.reactivex:rxjava:1.0+'
     compile 'io.reactivex:rxandroid:1.0+'
-    compile project(':library')
+    compile project(':androidforms2')
 }

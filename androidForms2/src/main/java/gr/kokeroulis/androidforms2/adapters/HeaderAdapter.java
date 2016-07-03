@@ -19,7 +19,7 @@ import java.util.List;
 import gr.kokeroulis.androidforms2.R;
 import gr.kokeroulis.androidforms2.base.HeaderElement;
 
-public class HeaderAdapter implements AdapterDelegate<List<Object>> {
+public class HeaderAdapter<T> implements AdapterDelegate<List<T>> {
     protected final ViewHolderUiProvider viewHolderUiProvider;
     private final LayoutInflater inflater;
 
@@ -29,7 +29,10 @@ public class HeaderAdapter implements AdapterDelegate<List<Object>> {
     }
 
     @Override
-    public boolean isForViewType(@NonNull List<Object> items, int position) {
+    public boolean isForViewType(@NonNull List<T> items, int position) {
+        Object item = items.get(position);
+        boolean ok = item instanceof HeaderElement;
+        boolean ok2 = items.get(position) instanceof HeaderElement;
         return items.get(position) instanceof HeaderElement;
     }
 
@@ -40,7 +43,7 @@ public class HeaderAdapter implements AdapterDelegate<List<Object>> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull List<Object> items, int position, @NonNull RecyclerView.ViewHolder holder) {
+    public void onBindViewHolder(@NonNull List<T> items, int position, @NonNull RecyclerView.ViewHolder holder) {
         HeaderViewHolder vh = (HeaderViewHolder) holder;
         HeaderElement element = (HeaderElement) items.get(position);
         vh.headerTitle.setText(element.title());

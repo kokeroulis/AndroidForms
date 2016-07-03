@@ -21,7 +21,7 @@ import gr.kokeroulis.androidforms2.base.number.NumberFormElement;
 import gr.kokeroulis.androidforms2.base.number.OnNumberValueChangedListener;
 import gr.kokeroulis.androidforms2.base.number.validators.Validator;
 
-public abstract class NumberAdapter<T, V extends NumberFormElement<T>> implements AdapterDelegate<List<Object>> {
+public abstract class NumberAdapter<E, T, V extends NumberFormElement<T>> implements AdapterDelegate<List<E>> {
     protected final NumberViewHolderUiProvider viewHolderUiProvider;
     private final LayoutInflater inflater;
     @Nullable
@@ -35,7 +35,7 @@ public abstract class NumberAdapter<T, V extends NumberFormElement<T>> implement
     }
 
     @Override
-    public abstract boolean isForViewType(@NonNull List<Object> items, int position);
+    public abstract boolean isForViewType(@NonNull List<E> items, int position);
 
     @NonNull
     @Override
@@ -47,7 +47,7 @@ public abstract class NumberAdapter<T, V extends NumberFormElement<T>> implement
     }
 
     @Override
-    public void onBindViewHolder(@NonNull List<Object> items, int position, @NonNull RecyclerView.ViewHolder holder) {
+    public void onBindViewHolder(@NonNull List<E> items, int position, @NonNull RecyclerView.ViewHolder holder) {
         NumberViewHolder vh = (NumberViewHolder) holder;
         final NumberFormElement<T> element = (NumberFormElement) items.get(position);
         vh.textView.setText(element.title());

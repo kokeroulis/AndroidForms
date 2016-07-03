@@ -20,7 +20,7 @@ import java.util.List;
 import gr.kokeroulis.androidforms2.R;
 import gr.kokeroulis.androidforms2.base.SelectionElement;
 
-public class SelectionAdapter implements AdapterDelegate<List<Object>> {
+public class SelectionAdapter<T> implements AdapterDelegate<List<T>> {
     protected final ViewHolderUiProvider viewHolderUiProvider;
     private final LayoutInflater inflater;
     @Nullable
@@ -38,7 +38,7 @@ public class SelectionAdapter implements AdapterDelegate<List<Object>> {
     }
 
     @Override
-    public boolean isForViewType(@NonNull List<Object> items, int position) {
+    public boolean isForViewType(@NonNull List<T> items, int position) {
         return items.get(position) instanceof SelectionElement;
     }
 
@@ -49,7 +49,7 @@ public class SelectionAdapter implements AdapterDelegate<List<Object>> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull List<Object> items, int position, @NonNull RecyclerView.ViewHolder holder) {
+    public void onBindViewHolder(@NonNull List<T> items, int position, @NonNull RecyclerView.ViewHolder holder) {
         SelectionViewHolder vh = (SelectionViewHolder) holder;
         final SelectionElement element = (SelectionElement) items.get(position);
         vh.title.setText(element.title());

@@ -23,7 +23,7 @@ import gr.kokeroulis.androidforms2.demo.models.FloatFormModel;
 import gr.kokeroulis.androidforms2.demo.models.IntegerFormModel;
 import gr.kokeroulis.androidforms2.demo.viewHolderProviders.EnumViewHolderProvider;
 import gr.kokeroulis.androidforms2.demo.viewHolderProviders.HeaderViewHolderProvider;
-import gr.kokeroulis.androidforms2.demo.viewHolderProviders.NumberViewHolderProvider;
+import gr.kokeroulis.androidforms2.demo.viewHolderProviders.NumberVIewHolderProvider;
 
 public class MainActivity extends AppCompatActivity {
     private MainFormsAdapter adapter;
@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         final AdapterDelegatesManager<List<Object>> delegatesManager = new AdapterDelegatesManager<>();
         delegatesManager.addDelegate(new HeaderAdapter(new HeaderViewHolderProvider(), this));
         delegatesManager.addDelegate(new SelectionAdapter(new EnumViewHolderProvider(), this, listener));
-        delegatesManager.addDelegate(new FloatAdapter(new NumberViewHolderProvider(), this, numberListener));
-        delegatesManager.addDelegate(new IntegerAdapter(new NumberViewHolderProvider(), this, integerListener));
+        delegatesManager.addDelegate(new FloatAdapter(new NumberVIewHolderProvider(), this, numberListener));
+        delegatesManager.addDelegate(new IntegerAdapter(new NumberVIewHolderProvider(), this, integerListener));
         adapter = new MainFormsAdapter(objects, delegatesManager);
         rv.setAdapter(adapter);
     }

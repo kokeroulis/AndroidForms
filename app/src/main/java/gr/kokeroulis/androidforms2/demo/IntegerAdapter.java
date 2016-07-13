@@ -10,7 +10,7 @@ import gr.kokeroulis.androidforms2.adapters.NumberAdapter;
 import gr.kokeroulis.androidforms2.base.number.IntegerFormElement;
 import gr.kokeroulis.androidforms2.base.number.OnNumberValueChangedListener;
 
-public class IntegerAdapter extends NumberAdapter<Integer, IntegerFormElement> {
+public class IntegerAdapter extends NumberAdapter<Object, Integer, IntegerFormElement> {
 
     public IntegerAdapter(NumberViewHolderUiProvider viewHolderUiProvider, Context context, @Nullable OnNumberValueChangedListener<Integer, IntegerFormElement> listener) {
         super(viewHolderUiProvider, context, listener);

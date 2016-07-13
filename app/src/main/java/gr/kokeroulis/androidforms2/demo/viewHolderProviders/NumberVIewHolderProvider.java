@@ -7,7 +7,7 @@ import android.widget.TextView;
 import gr.kokeroulis.androidforms2.adapters.NumberAdapter;
 import gr.kokeroulis.androidforms2.demo.R;
 
-public class NumberViewHolderProvider implements NumberAdapter.NumberViewHolderUiProvider {
+public class NumberVIewHolderProvider implements NumberAdapter.NumberViewHolderUiProvider {
 
     @Override
     public int getLayout() {

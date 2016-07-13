@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -48,7 +49,7 @@ public abstract class NumberAdapter<E, T, V extends NumberFormElement<T>> implem
 
     @Override
     public void onBindViewHolder(@NonNull List<E> items, int position, @NonNull RecyclerView.ViewHolder holder) {
-        NumberViewHolder vh = (NumberViewHolder) holder;
+        final NumberViewHolder vh = (NumberViewHolder) holder;
         final NumberFormElement<T> element = (NumberFormElement) items.get(position);
         vh.textView.setText(element.title());
         vh.editText.setInputType(element.getFormType());

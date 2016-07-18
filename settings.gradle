@@ -1,1 +1,1 @@
-include ':app', ':androidforms2'
+include ':app', ':androidForms2'
